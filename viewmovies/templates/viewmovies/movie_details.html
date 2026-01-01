@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ movie.name }} ({{ movie.year }})
+{% endblock %}
+
+{% block content %}
+<div class="movie-detail">
+
+  <!-- Header section -->
+  <div class="movie-header">
+    <img src="{{ movie.poster }}" alt="{{ movie.name }}" />
+
+    <div class="movie-info">
+      <h1>{{ movie.name }} ({{ movie.year }})</h1>
+
+      <p class="movie-meta">
+        Directed by <strong>{{ movie.director }}</strong> |
+        Language: {{ movie.language }}
+      </p>
+
+      <!-- Actors (comma-separated, clean UI) -->
+      {% if movie.actors %}
+        <p class="movie-meta">
+          <strong>Actors:</strong> {{ movie.actors|join:", " }}
+        </p>
+      {% endif %}
+
+      <!-- Average rating -->
+      <div class="rating-box">
+        {% if avg_rating %}
+          ⭐ Average rating: {{ avg_rating|floatformat:1 }}/10
+        {% else %}
+          No ratings yet
+        {% endif %}
+      </div>
+
+      <!-- User rating -->
+      {% if user.is_authenticated %}
+        {% if not user_rating %}
+          <form method="post">
+            {% csrf_token %}
+            {{ form.rating }}
+            <button type="submit">Save rating</button>
+          </form>
+        {% else %}
+          <p>Your rating: <strong>{{ user_rating.rating }}</strong></p>
+          <form method="post">
+            {% csrf_token %}
+            {{ form.rating }}
+            <button type="submit">Edit my rating</button>
+          </form>
+        {% endif %}
+      {% else %}
+        <p>
+          <a href="{% url 'login' %}">Login</a> to rate this movie.
+        </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Synopsis -->
+  <div class="synopsis">
+    <h3>Synopsis</h3>
+    <p>{{ movie.synopsis }}</p>
+  </div>
+
+  <!-- Genres as tags -->
+  {% if movie.genre %}
+    <div class="genres">
+      <h3>Genres</h3>
+      <div class="genre-list">
+        {% for gen in movie.genre %}
+          <span class="genre">{{ gen }}</span>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+</div>
+{% endblock %}
