@@ -84,11 +84,13 @@ TEMPLATES = [
 # --------------------------------------------------
 # Database
 # --------------------------------------------------
+DATABASE_URL = os.environ.get("DATABASE_URL")
+
+if not DATABASE_URL:
+    raise RuntimeError("DATABASE_URL is not set. PostgreSQL is required.")
+
 DATABASES = {
-    "default": dj_database_url.config(
-        default="sqlite:///db.sqlite3",
-        conn_max_age=600,
-    )
+    "default": dj_database_url.parse(DATABASE_URL)
 }
 
 # --------------------------------------------------
