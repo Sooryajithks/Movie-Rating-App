@@ -135,7 +135,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Auth redirects
 # --------------------------------------------------
 LOGIN_URL = "/accounts/login/"
-LOGIN_REDIRECT_URL = "/movies/"
+LOGIN_REDIRECT_URL = "movielistpage"
 LOGOUT_REDIRECT_URL = "/accounts/login/"
 
 # --------------------------------------------------
