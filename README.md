@@ -2,7 +2,7 @@
 
 Full-stack Django web application for giving user ratings to movies.
 
-![Home Page](Movie-List-Home-Page.png)
+![Home Page](Movie-list-home-page.png)
 
 ## Features
 - User registration and authentication
