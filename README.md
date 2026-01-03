@@ -12,6 +12,8 @@ Full-stack Django web application for giving user ratings to movies.
 - Data storage using PostgreSQL
 - Production deployment on Railway
 
+![Movie Details Page](Movie-details.png)
+
 ## Tech Stack
 - Backend: Python Django
 - Database: PostgreSQL
